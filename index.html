@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devit.N</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Courier+Prime&display=swap" rel="stylesheet">
+    <link rel="icon" href="icon/Favicon.png" type="image/x-icon">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #050505;
+            --card-bg: #101010;
+            --text-color: #ffffff;
+            --text-secondary: #a0a0a0;
+            --neon-color: #00f3ff; /* Cold Cyan */
+            --neon-glow: 0 0 10px #00f3ff, 0 0 20px #00f3ff;
+            --font-main: 'Poppins', sans-serif;
+            --font-code: 'Courier Prime', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- UTILITIES --- */
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--bg-color);
+            -webkit-text-stroke: 1px var(--neon-color);
+            text-shadow: 0 0 5px var(--neon-color);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-color);
+            text-shadow: 0 0 10px var(--neon-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-color);
+            text-shadow: 0 0 8px var(--neon-color);
+        }
+
+        /* --- HERO SECTION --- */
+        #home {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center, #0a1f25 0%, #050505 70%);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hero-content h1 span {
+            color: var(--neon-color);
+            text-shadow: var(--neon-glow);
+        }
+
+        .hero-content h2 {
+            font-family: var(--font-code);
+            font-size: 1.5rem;
+            color: var(--neon-color);
+            margin-bottom: 30px;
+            min-height: 1.6em; /* Prevent layout shift */
+        }
+
+        .profile-img {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    object-fit: cover;
+    
+    /* 1. Create the frame space */
+    padding: 8px; /* This acts as the thickness of your LED frame */
+    
+    /* 2. Apply the Gradient to the background */
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    
+    /* 3. The LED Glow effect */
+    box-shadow: 0 0 20px var(--primary), 
+                0 0 40px var(--secondary);
+                
+    /* 4. Smooth hover effect */
+    transition: all 0.4s ease;
+}
+
+.profile-img:hover {
+    box-shadow: 0 0 30px var(--primary), 
+                0 0 60px var(--secondary);
+    transform: scale(1.02);
+}
+
+@keyframes rotate-led {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.profile-img {
+    animation: rotate-led 5s linear infinite;
+}
+
+        .btn-neon {
+            padding: 12px 30px;
+            border: 2px solid var(--neon-color);
+            color: var(--neon-color);
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        .btn-neon:hover {
+            background: var(--neon-color);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-color);
+        }
+
+
+        /* --- SECTIONS GENERAL --- */
+        section {
+            padding: 100px 0;
+        }
+
+        /* --- ABOUT ME --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 300px;
+            background: #111;
+            border: 2px solid var(--neon-color);
+            box-shadow: 10px 10px 0 rgba(0, 243, 255, 0.2);
+            position: relative;
+        }
+        
+        .about-img::after {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: #333;
+        }
+
+        /* --- SKILLS --- */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            padding: 15px 30px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            font-family: var(--font-code);
+            transition: 0.3s;
+        }
+
+        .skill-item:hover {
+            border-color: var(--neon-color);
+            box-shadow: 0 0 10px var(--neon-color);
+            transform: translateY(-5px);
+        }
+
+        /* --- PROJECTS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--gray);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--light-gray);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .project-tag {
+            background-color: var(--light-gray);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* --- EXPERIENCE & EDUCATION (Timeline Style) --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: #333;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            right: -7.5px; /* Adjust for left items */
+            background-color: var(--bg-color);
+            border: 2px solid var(--neon-color);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--neon-color);
+        }
+
+        .left { left: 0; }
+        .right { left: 50%; }
+        .right::after { left: -7.5px; }
+
+        .content-box {
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 6px;
+            border-left: 3px solid var(--neon-color);
+        }
+
+        .date {
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- CONTACT --- */
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            font-family: var(--font-main);
+            outline: none;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--neon-color);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 243, 255, 0.1);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media screen and (max-width: 768px) {
+            .nav-links { display: none; } /* Simplified for demo */
+            .about-grid { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::after { left: 24px; }
+            .left::after, .right::after { left: 24px; }
+            .right { left: 0%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">Devit.N.</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#project">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="container hero-content">
+            <div class="home-image">
+        <img src="icon/devit-image.png" alt="Profile Image" class="profile-img">
+    </div>
+            <h1>I am <span id="name-highlight">Devit.</span></h1>
+            <h2><span class="typewriter"></span></h2>
+            <a href="#project" class="btn-neon">View My Work</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-img">
+                <img src="icon/devit.png" alt="Girl in a jacket" width="350" height="300">
+                    </div>
+                <div>
+                    <p>I am a motivated and passionate IT student with a strong interest in computer networks, programming, and modern technologies. I enjoy learning how systems work, from basic hardware and networking concepts to web development and cybersecurity fundamentals.</p>
+                    <br>
+                    <p>I have experience with HTML, CSS, JavaScript, and C programming, and I am continuously improving my skills through self-study, practice projects, and online learning. I enjoy solving problems, learning new tools, and turning ideas into real, working solutions.</p>
+                    <br>
+                    <p>My goal is to become a skilled IT professional who can design, build, and maintain reliable systems while continuously growing with new technologies. I value discipline, consistency, and learning by doing, and I am always open to new challenges and opportunities to improve myself.</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">HTML5</div>
+                <div class="skill-item">CSS3</div>
+                <div class="skill-item">JavaScript</div>
+                <div class="skill-item">React / Vue</div>
+                <div class="skill-item">Node.js</div>
+                <div class="skill-item">Python</div>
+                <div class="skill-item">Network</div>
+                <div class="skill-item">Cyber Security</div>
+                <div class="skill-item">SoftWare Development</div>
+                <div class="skill-item">UI/UX Design</div>
+                <div class="skill-item">Git & Github</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="project">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="project-grid">
+            <div class="project-card">
+                <img src="icon/calculator.png" alt="calculator" class="project-img">
+                <div class="project-info">
+                    <h3>Calculator</h3>
+                    <p>The Calculator Project is a simple yet functional web application designed to perform basic arithmetic operations such as addition, subtraction, multiplication, and division. This project focuses on creating a clean user interface and delivering accurate, real-time calculations.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">C SHARP</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="icon/car-shop.png" alt="Car Shop" class="project-img">
+                <div class="project-info">
+                    <h3>Car Shop Website</h3>
+                    <p>The Car Shop Website is a responsive web application designed to showcase and sell vehicles online. The website allows users to browse different car models, view detailed information, and easily contact the seller. The project focuses on modern UI design, usability, and clean front-end structure.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="icon/quiz.png" alt="Quiz" class="project-img">
+                <div class="project-info">
+                    <h3>Quiz Website</h3>
+                    <p>The Quiz Website is an interactive web application designed to test users’ knowledge through multiple-choice questions. It provides instant feedback, score calculation, and a user-friendly interface to make learning engaging and fun.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="content-box">
+                        <span class="date">2025 - Present</span>
+                        <h3>Web Developer</h3>
+                        <p>Devit.N.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="content-box">
+                        <span class="date">2025 - 2025</span>
+                        <h3>Web Developer</h3>
+                        <p>Create Calculator Website.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="content-box">
+                        <span class="date">2025 - 2025</span>
+                        <h3>Web Developer</h3>
+                        <p>Create Car Shop Website.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="content-box">
+                        <span class="date">2025 - 2025</span>
+                        <h3>Web Developer</h3>
+                        <p>Create Quiz Website.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="content-box">
+                        <span class="date">2024 - 2025</span>
+                        <h3>Web Developer</h3>
+                        <p>devit333.github.io.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <span class="date">2024 - Present</span>
+                    <h3>Computer Science.</h3>
+                    <p>Anagkor Khemara University.</p>
+                </div>
+                <div class="project-card">
+                    <span class="date">2023 - Present</span>
+                    <h3>English.</h3>
+                    <p>Asia Euro University.</p>
+                </div>
+                <div class="project-card">
+                    <span class="date">2023 - 2024</span>
+                    <h3>Civil Engaging.</h3>
+                    <p>National Technical Training Institute.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container contact-container">
+            <h2 class="section-title">Contact Me</h2>
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <textarea rows="5" placeholder="Message"></textarea>
+                </div>
+                <button type="submit" class="btn-neon">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 <a href="https://github.com/devith333" target="_blank">Devit.N. </a>All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Typewriter Effect Logic
+        const textElement = document.querySelector('.typewriter');
+        const words = ["Web Developer", "UI/UX Designer", "Software Deverloper", "Cyber Security", "Network"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeSpeed = 100;
+        const deleteSpeed = 50;
+        const waitSpeed = 2000;
+
+        function type() {
+            const currentWord = words[wordIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, waitSpeed);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? deleteSpeed : typeSpeed);
+            }
+        }
+
+        // Start Typewriter
+        document.addEventListener('DOMContentLoaded', type);
+
+        // Optional: Add simple fade-in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('section').forEach((section) => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 1s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
